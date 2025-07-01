@@ -2,8 +2,16 @@
 vanillaGradle = "0.2.1-SNAPSHOT"
 adventure = "4.24.0-SNAPSHOT"
 
+# Tests
+junit-jupiter = "5.10.2"
+junit-platform = "1.10.2"
+
 [libraries]
 adventureNbtSerializer = { module = "net.kyori:adventure-text-serializer-nbt", version.ref = "adventure" }
+
+# Tests
+junit-jupiter = { module =  "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-platform = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
 
 [plugins]
 vanillaGradle = { id = "org.spongepowered.gradle.vanilla", version.ref = "vanillaGradle" }
