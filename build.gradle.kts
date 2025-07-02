@@ -15,5 +15,6 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+        systemProperty("junit.jupiter.extensions.autodetection.enabled", true)
     }
 }
