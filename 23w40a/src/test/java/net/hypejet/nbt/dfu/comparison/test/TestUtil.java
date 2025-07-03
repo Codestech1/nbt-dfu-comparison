@@ -3,8 +3,10 @@ package net.hypejet.nbt.dfu.comparison.test;
 import net.hypejet.nbt.dfu.comparison.test.adapter.NBTAdapter;
 import net.kyori.adventure.nbt.BinaryTag;
 import net.kyori.adventure.nbt.CompoundBinaryTag;
+import net.kyori.adventure.nbt.TagStringIO;
 import net.kyori.adventure.text.serializer.nbt.NBTComponentSerializer;
 import net.kyori.adventure.text.serializer.nbt.NBTSerializerOptions;
+import net.kyori.adventure.util.Codec;
 import net.kyori.option.OptionState;
 import net.minecraft.SharedConstants;
 import net.minecraft.nbt.NbtOps;
@@ -16,9 +18,17 @@ import net.minecraft.server.Bootstrap;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 
+import java.io.IOException;
+
 final class TestUtil {
 
     private static final NBTComponentSerializer SERIALIZER;
+    private static final TagStringIO TAG_STRING_IO = TagStringIO.tagStringIO();
+
+    static final Codec<BinaryTag, String, IOException, IOException> TAG_STRING_CODEC = Codec.codec(
+            TAG_STRING_IO::asTag,
+            TAG_STRING_IO::asString
+    );
 
     static {
         SharedConstants.tryDetectVersion();
