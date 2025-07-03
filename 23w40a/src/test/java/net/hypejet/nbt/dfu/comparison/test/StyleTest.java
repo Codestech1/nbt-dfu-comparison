@@ -4,59 +4,51 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import org.junit.jupiter.api.Test;
 
-import static net.kyori.adventure.text.Component.empty;
-import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.format.Style.empty;
 import static net.kyori.adventure.text.format.Style.style;
 
 final class StyleTest {
     @Test
     public void testEmpty() {
-        TestUtil.test(Component.empty(), empty());
+        TestUtil.test(Style.EMPTY, empty());
     }
 
     @Test
     public void testWithColor() {
         TestUtil.test(
-                Component.empty().withStyle(ChatFormatting.BLACK),
-                text("", NamedTextColor.BLACK)
+                Style.EMPTY.withColor(ChatFormatting.BLACK),
+                style(NamedTextColor.BLACK)
         );
     }
 
     @Test
     public void testWithUnderlinedAndBold() {
         TestUtil.test(
-                Component.empty().withStyle(ChatFormatting.UNDERLINE, ChatFormatting.BOLD),
-                text().decorate(TextDecoration.UNDERLINED, TextDecoration.BOLD).build()
+                Style.EMPTY.withUnderlined(true).withBold(true),
+                style(TextDecoration.UNDERLINED, TextDecoration.BOLD)
         );
     }
 
     @Test
     public void testWithDecorations() {
-        String text = "Just a test";
         TestUtil.test(
-                Component.literal(text).withStyle(
-                        Style.EMPTY
-                                .withBold(true)
-                                .withItalic(false)
-                                .withStrikethrough(false)
-                                .withUnderlined(true)
-                                .withObfuscated(true)
-                ),
-                text(
-                        text,
-                        style()
-                                .decoration(TextDecoration.BOLD, true)
-                                .decoration(TextDecoration.ITALIC, false)
-                                .decoration(TextDecoration.STRIKETHROUGH, false)
-                                .decoration(TextDecoration.UNDERLINED, true)
-                                .decoration(TextDecoration.OBFUSCATED, true)
-                                .build()
-                )
+                Style.EMPTY
+                        .withBold(true)
+                        .withItalic(false)
+                        .withStrikethrough(false)
+                        .withUnderlined(true)
+                        .withObfuscated(true),
+                style()
+                        .decoration(TextDecoration.BOLD, true)
+                        .decoration(TextDecoration.ITALIC, false)
+                        .decoration(TextDecoration.STRIKETHROUGH, false)
+                        .decoration(TextDecoration.UNDERLINED, true)
+                        .decoration(TextDecoration.OBFUSCATED, true)
+                        .build()
         );
     }
 
@@ -64,8 +56,8 @@ final class StyleTest {
     public void testWithInsertion() {
         String insertion = "Some insertion";
         TestUtil.test(
-                Component.empty().withStyle(Style.EMPTY.withInsertion(insertion)),
-                text().insertion(insertion).build()
+                Style.EMPTY.withInsertion(insertion),
+                style().insertion(insertion).build()
         );
     }
 
@@ -73,8 +65,8 @@ final class StyleTest {
     public void testWithFont() {
         String font = "hypejet:thin";
         TestUtil.test(
-                Component.empty().withStyle(Style.EMPTY.withFont(new ResourceLocation(font))),
-                text().font(Key.key(font)).build()
+                Style.EMPTY.withFont(new ResourceLocation(font)),
+                style().font(Key.key(font)).build()
         );
     }
 }
